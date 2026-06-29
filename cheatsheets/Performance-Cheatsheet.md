@@ -33,11 +33,11 @@ ArcSOC Process           ← CPU and memory consumption
 Database / DataStore     ← Query latency (most common root cause)
 ```
 
-> ⚠️ Most "ArcGIS is slow" issues are actually **database problems wearing a GIS mask**. Check the data tier first.
+> Most "ArcGIS is slow" issues are actually **database problems wearing a GIS mask**. Check the data tier first.
 
 ---
 
-## ⚡ Symptom → Likely Cause → Fix
+## Symptom, Likely Cause & Potential Fix
 
 | Symptom | Likely Cause | Fix |
 |---|---|---|
@@ -48,7 +48,7 @@ Database / DataStore     ← Query latency (most common root cause)
 
 ---
 
-## 🔧 ArcSOC — Quick Settings Reference
+## ArcSOC Settings Reference
 
 | Setting | What It Does | Too Low | Too High |
 |---|---|---|---|
@@ -62,11 +62,11 @@ Database / DataStore     ← Query latency (most common root cause)
 - Manager → Services → Select Service → Pooling
 - Admin Directory → Services → Select Service → Edit → `minInstancesPerNode` / `maxInstancesPerNode`
 
-> ⚠️ Restart the service after changing pooling values. Do this during off-peak hours.
+> Restart the service after changing pooling values. Do this after hours to avoid service disruption.
 
 ---
 
-## 💾 Memory — Quick Diagnosis
+## Memory Diagnosis
 
 | Symptom | Likely Cause |
 |---|---|
@@ -91,7 +91,7 @@ Services × ArcSOC Instances × Avg Memory per ArcSOC = Total Memory Used
 
 ---
 
-## ☕ Heap Size — Quick Reference
+## Heap Size Reference
 
 | RAM | Recommended Heap |
 |---|---|
@@ -123,7 +123,7 @@ OutOfMemoryError in logs
 
 ---
 
-## 📊 Key Metrics to Watch
+## Key Metrics to Watch
 
 ```
 Response Time     → avg, 95th percentile, max
@@ -146,7 +146,7 @@ Network   → bandwidth / latency / packet loss
 
 ---
 
-## 🛠️ Monitoring Tools
+## Monitoring Tools
 
 | Tool | Use For |
 |---|---|
@@ -160,7 +160,7 @@ Network   → bandwidth / latency / packet loss
 
 ---
 
-## 📋 Investigation Workflow
+## Investigation Workflow
 
 ```
 1. Define scope         → one service? one machine? all machines?
@@ -203,7 +203,7 @@ Test in non-prod first          Review logs for new errors
 
 ---
 
-## 🏃 Quick Triage Checklist
+## Quick Triage Checklist
 
 ```
 □ Gather evidence first — screenshots, logs, performance data
@@ -216,7 +216,7 @@ Test in non-prod first          Review logs for new errors
 
 ---
 
-## 📎 Related
+## Refererence
 
 - [Performance Deep Dive](../docs/Performance-Deep-Dive.md)
 - [ArcSOC Processes Guide](../docs/ArcSOC-Processes.md)
