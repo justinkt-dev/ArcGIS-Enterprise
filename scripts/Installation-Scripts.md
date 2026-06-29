@@ -88,6 +88,68 @@ chmod +x 04_install_arcgis_webadaptor.sh
 
 ## 1.0 ArcGIS Server
 
+Installation Script
+
+```bash
+#!/bin/bash
+# ============================================================
+#  ArcGIS Enterprise 12.0 — ArcGIS Server Installation
+#  Run as: sudo bash 01_install_arcgis_server.sh
+# ============================================================
+set -e # exits immediately if any command fails,
+
+echo ""
+echo "============================================================"
+echo "  ArcGIS Server 12.0 Installation"
+echo "============================================================"
+
+# ── Variables ─────────────────────────────────────────────────
+INSTALLER_DIR="/data/installers"
+INSTALL_DIR="/home/arcgis/arcgis/server"
+LICENSE_FILE="$INSTALLER_DIR/Server_Ent_Adv_AllExt.prvc"
+SERVICE_NAME="arcgisserver"
+
+# ── Step 1: Extract Installer ──────────────────────────────────
+echo ""
+echo "[1/4] Extracting ArcGIS Server installer..."
+cd "$INSTALLER_DIR"
+tar xvf ArcGIS_Server_Linux_120_*.tar.gz
+echo "✔ Extraction complete."
+
+# ── Step 2: Run Silent Installation ───────────────────────────
+echo ""
+echo "[2/4] Installing ArcGIS Server as arcgis user..."
+su - arcgis -c "
+  cd $INSTALLER_DIR/ArcGISServer &&
+  ./Setup -m silent -l yes -a $LICENSE_FILE
+"
+echo "✔ Installation complete."
+echo "  Access Server Manager at: https://$(hostname -f):6443/arcgis/manager"
+
+# ── Step 3: Register systemd Service ──────────────────────────
+echo ""
+echo "[3/4] Registering arcgisserver systemd service..."
+cp $INSTALL_DIR/framework/etc/scripts/arcgisserver.service /etc/systemd/system/
+systemctl enable $SERVICE_NAME
+echo "✔ Service registered and enabled."
+
+# ── Step 4: Start Service ──────────────────────────────────────
+echo ""
+echo "[4/4] Starting ArcGIS Server..."
+su - arcgis -c "$INSTALL_DIR/stopserver.sh" || true
+pkill -u arcgis -f server || true
+sleep 5
+systemctl daemon-reload
+systemctl restart $SERVICE_NAME
+systemctl status $SERVICE_NAME | head
+
+echo ""
+echo "============================================================"
+echo "  ArcGIS Server Installation Complete!"
+echo "  URL: https://$(hostname -f):6443/arcgis/manager"
+echo "============================================================"
+```
+
 Installs ArcGIS Server, registers and starts the systemd service.
 
 ```bash
