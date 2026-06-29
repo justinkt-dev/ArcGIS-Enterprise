@@ -1,4 +1,4 @@
-# ArcGIS Enterprise 12.0 — Installation on Ubuntu Linux
+# ArcGIS Enterprise 12.0 Installation on Ubuntu Linux
 
 > A practical, field-tested guide for installing ArcGIS Enterprise on Ubuntu Linux using Apache Tomcat as the Java web server. Built from real lab deployments — not just documentation.
 
