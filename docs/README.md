@@ -1,6 +1,5 @@
 # Existing Blog Posts 
-All corresponding articles can be found on medium at [GeoTech LogBook](https://justinkt.medium.com/list/the-geotech-logbook-gis-insights-debug-diary-f824929cb8cb). Alternatively, you may find the same on [JKT blogs](https://justinkombe.com/posts/)
-To avoid repetition, only currated guide will be added here
+All corresponding articles can be found on medium at [GeoTech LogBook](https://justinkt.medium.com/list/the-geotech-logbook-gis-insights-debug-diary-f824929cb8cb). Alternatively, you may find the same on [JKT blogs](https://justinkombe.com/posts/). That said, to avoid repetition, only currated guides will be added here. 
 
 ## ArcGIS Feature Services 
 
@@ -16,4 +15,4 @@ To avoid repetition, only currated guide will be added here
 
 ## ArcGIS Performance Issue Deep Dive 
 
-* Work In Progress 
+* ***Work In Progress***
