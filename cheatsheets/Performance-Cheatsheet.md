@@ -218,14 +218,10 @@ Test in non-prod first          Review logs for new errors
 
 ## Refererence
 
-- [Performance Deep Dive](../docs/Performance-Deep-Dive.md)
-- [ArcSOC Processes Guide](../docs/ArcSOC-Processes.md)
-- [Memory Optimization and Heap Sizing](../docs/Memory-Optimization-and-Heap-Sizing.md)
-- [Esri — Configure service instance settings](https://enterprise.arcgis.com/en/server/latest/administer/windows/configure-service-instance-settings.htm)
-- [Esri — Tune services to meet user needs](https://enterprise.arcgis.com/en/server/latest/administer/windows/tune-and-configure-services.htm)
+- [Configure service instance settings](https://enterprise.arcgis.com/en/server/latest/administer/windows/configure-service-instance-settings.htm)
+- [Tune services to meet user needs](https://enterprise.arcgis.com/en/server/latest/administer/windows/tune-and-configure-services.htm)
 - [ArcGIS Monitor](https://www.esri.com/en-us/arcgis/products/arcgis-monitor/overview)
 - [ArcGIS Online Health Dashboard](https://status.arcgis.com/)
 
 ---
 
-*Based on: ArcGIS Enterprise 12.0 · Field-tested troubleshooting scenarios*
