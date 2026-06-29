@@ -1,10 +1,10 @@
-# ArcGIS Enterprise — Performance Cheatsheet
+# ArcGIS Enterprise Performance Cheatsheet
 
-> Open this during an incident. No explanations — just what to check and what to fix.
+> This is just a a checklist, for more explanation feel free to check the official blog post. 
 
 ---
 
-## 🔴 Step 0 — Define the Scope First
+## Define the Scope First
 
 ```
 Is it one service?     → Check service status, type, queue length
@@ -15,7 +15,9 @@ Were there changes?    → Review new services, updates, data changes
 
 ---
 
-## 📡 Request Flow (Where Is Time Being Spent?)
+## Request Flow (Where Is Time Being Spent?)
+
+![ArcGIS Request](../images/Request-Flow.webp)
 
 ```
 Client
