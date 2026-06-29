@@ -1,6 +1,6 @@
-# ArcGIS Enterprise Performance Cheatsheet
+# ArcGIS Systems Performance Cheatsheet
 
-> This is just a a checklist, for more explanation feel free to check the official blog post. 
+> This is a guide to help you troubleshoot performance issue in GIS Environments. For more details, checkout the blog post. 
 
 ---
 
@@ -17,7 +17,7 @@ Were there changes?    → Review new services, updates, data changes
 
 ## Request Flow (Where Is Time Being Spent?)
 
-![ArcGIS Request](../images/Request-Flow.webp)
+![Request Flow](../images/Request-Flow.webp)
 
 ```
 Client
@@ -39,41 +39,12 @@ Database / DataStore     ← Query latency (most common root cause)
 
 ## ⚡ Symptom → Likely Cause → Fix
 
-### Slow Map Services During Peak Hours
-
-```
-Cause   → Insufficient ArcSOC instances / database contention / uncached layers
-Fix     → Increase max instances (if RAM allows)
-          Enable tile caching for base layers
-          Optimize database indexes
-```
-
-### ArcSOC Consuming Excessive Memory
-
-```
-Cause   → Memory leak in custom code / oversized pools
-Fix     → Set service recycling (recycle after N requests)
-          Reduce max instances
-          Review ArcGIS version for known memory issues
-```
-
-### Portal Feels Slow but Services Are Fast
-
-```
-Cause   → Heap too small / search index issues / IdP latency
-Fix     → Check Portal logs for GC or OOM errors
-          Increase JVM heap size
-          Investigate identity provider response time
-```
-
-### Geoprocessing Service Timeouts
-
-```
-Cause   → Timeout too short / pooled service with long-running tasks
-Fix     → Increase Web Adaptor ProxyTimeout
-          Increase Server RequestTimeout
-          Set service to non-pooled (Min=0, Max=0)
-```
+| Symptom | Likely Cause | Fix |
+|---|---|---|
+| Slow map services during peak hours | Insufficient ArcSOC instances / database contention / uncached layers | Increase max instances (if RAM allows) · Enable tile caching for base layers · Optimize database indexes |
+| ArcSOC consuming excessive memory | Memory leak in custom code / oversized pools | Set service recycling (after N requests) · Reduce max instances · Review ArcGIS version for known memory issues |
+| Portal feels slow but services are fast | Heap too small / search index issues / IdP latency | Check Portal logs for GC or OOM errors · Increase JVM heap size · Investigate identity provider response time |
+| Geoprocessing service timeouts | Timeout too short / pooled service with long-running tasks | Increase Web Adaptor ProxyTimeout · Increase Server RequestTimeout · Set service to non-pooled (Min=0, Max=0) |
 
 ---
 
