@@ -175,6 +175,66 @@ https://HOSTNAME:6443/arcgis/manager
 
 ## 2.0 Portal for ArcGIS
 
+Installation Script
+```bash
+#!/bin/bash
+# ============================================================
+#  ArcGIS Enterprise 12.0 — Portal for ArcGIS Installation
+#  Run as: sudo bash 02_install_arcgis_portal.sh
+# ============================================================
+set -e
+
+echo ""
+echo "============================================================"
+echo "  Portal for ArcGIS 12.0 Installation"
+echo "============================================================"
+
+# ── Variables ─────────────────────────────────────────────────
+INSTALLER_DIR="/data/installers"
+INSTALL_DIR="/home/arcgis/arcgis/portal"
+SERVICE_NAME="arcgisportal"
+
+# ── Step 1: Extract Installer ──────────────────────────────────
+echo ""
+echo "[1/4] Extracting Portal for ArcGIS installer..."
+cd "$INSTALLER_DIR"
+tar xvf Portal_for_ArcGIS_Linux_120_*.tar.gz
+echo "✔ Extraction complete."
+
+# ── Step 2: Run Silent Installation ───────────────────────────
+echo ""
+echo "[2/4] Installing Portal for ArcGIS as arcgis user..."
+su - arcgis -c "
+  cd $INSTALLER_DIR/PortalForArcGIS &&
+  ./Setup -m silent -l yes
+"
+echo "✔ Installation complete."
+echo "  Access Portal at: https://$(hostname -f):7443/arcgis/home"
+
+# ── Step 3: Register systemd Service ──────────────────────────
+echo ""
+echo "[3/4] Registering arcgisportal systemd service..."
+cp $INSTALL_DIR/framework/etc/arcgisportal.service /etc/systemd/system/
+systemctl enable $SERVICE_NAME
+echo "✔ Service registered and enabled."
+
+# ── Step 4: Start Service ──────────────────────────────────────
+echo ""
+echo "[4/4] Starting Portal for ArcGIS..."
+su - arcgis -c "$INSTALL_DIR/stopportal.sh" || true
+pkill -u arcgis -f portal || true
+sleep 5
+systemctl daemon-reload
+systemctl restart $SERVICE_NAME
+systemctl status $SERVICE_NAME | head
+
+echo ""
+echo "============================================================"
+echo "  Portal for ArcGIS Installation Complete!"
+echo "  URL: https://$(hostname -f):7443/arcgis/home"
+echo "============================================================"
+```
+
 Installs Portal for ArcGIS, registers and starts the systemd service.
 
 ```bash
@@ -199,6 +259,88 @@ https://HOSTNAME:7443/arcgis/home
 ---
 
 ## 3.0 ArcGIS DataStore
+
+Installation Script
+
+``bash
+#!/bin/bash
+# ============================================================
+#  ArcGIS Enterprise 12.0 — ArcGIS DataStore Installation
+#  Run as: sudo bash 03_install_arcgis_datastore.sh
+# ============================================================
+set -e
+
+echo ""
+echo "============================================================"
+echo "  ArcGIS DataStore 12.0 Installation"
+echo "============================================================"
+
+# ── Variables ─────────────────────────────────────────────────
+INSTALLER_DIR="/data/installers"
+INSTALL_DIR="/home/arcgis/arcgis/datastore"
+SERVICE_NAME="arcgisdatastore"
+HOSTNAME=$(hostname -f)
+
+# ── Configuredatastore Parameters ─────────────────────────────
+SERVER_ADMIN_URL="https://$HOSTNAME:6443/arcgis/admin"
+SERVER_ADMIN_USER="siteadmin"
+SERVER_ADMIN_PASS="siteadmin"
+DATASTORE_DIR="$INSTALL_DIR"
+DATASTORE_TYPES="relational,tileCache"
+
+# ── Step 1: Extract Installer ──────────────────────────────────
+echo ""
+echo "[1/5] Extracting ArcGIS DataStore installer..."
+cd "$INSTALLER_DIR"
+tar xvf ArcGIS_DataStore_Linux_120_*.tar.gz
+echo "✔ Extraction complete."
+
+# ── Step 2: Run Silent Installation ───────────────────────────
+echo ""
+echo "[2/5] Installing ArcGIS DataStore as arcgis user..."
+su - arcgis -c "
+  cd $INSTALLER_DIR/ArcGISDataStore_Linux &&
+  ./Setup -m silent -l yes
+"
+echo "✔ Installation complete."
+
+# ── Step 3: Register systemd Service ──────────────────────────
+echo ""
+echo "[3/5] Registering arcgisdatastore systemd service..."
+cp $INSTALL_DIR/framework/etc/scripts/arcgisdatastore.service /etc/systemd/system/
+systemctl enable $SERVICE_NAME
+echo "✔ Service registered and enabled."
+
+# ── Step 4: Start Service ──────────────────────────────────────
+echo ""
+echo "[4/5] Starting ArcGIS DataStore..."
+su - arcgis -c "$INSTALL_DIR/stopdatastore.sh" || true
+pkill -u arcgis -f datastore || true
+sleep 5
+systemctl daemon-reload
+systemctl restart $SERVICE_NAME
+systemctl status $SERVICE_NAME | head
+
+# ── Step 5: Register DataStore with ArcGIS Server ─────────────
+echo ""
+echo "[5/5] Registering Relational and Tile Cache datastores with ArcGIS Server..."
+echo "  Server Admin URL : $SERVER_ADMIN_URL"
+echo "  DataStore Path   : $DATASTORE_DIR"
+echo "  Store Types      : $DATASTORE_TYPES"
+echo ""
+
+su - arcgis -c "
+  cd $INSTALL_DIR/tools &&
+  ./configuredatastore.sh $SERVER_ADMIN_URL $SERVER_ADMIN_USER $SERVER_ADMIN_PASS $DATASTORE_DIR --stores $DATASTORE_TYPES
+"
+
+echo ""
+echo "============================================================"
+echo "  ArcGIS DataStore Installation Complete!"
+echo "  Verify at: https://$HOSTNAME:6443/arcgis/manager"
+echo "  Go to Site > Data Stores to confirm registration."
+echo "============================================================"
+```
 
 Installs ArcGIS DataStore, registers the systemd service, and registers Relational and Tile Cache stores with ArcGIS Server.
 
@@ -227,6 +369,114 @@ Both stores should show as `Started`.
 ---
 
 ## 4.0 ArcGIS Web Adaptor
+
+Installation Script
+
+```bash
+#!/bin/bash
+# ============================================================
+#  ArcGIS Enterprise 12.0 — ArcGIS Web Adaptor Installation
+#  Run as: sudo bash 04_install_arcgis_webadaptor.sh
+# ============================================================
+set -e
+
+echo ""
+echo "============================================================"
+echo "  ArcGIS Web Adaptor 12.0 Installation"
+echo "============================================================"
+
+# ── Variables ─────────────────────────────────────────────────
+INSTALLER_DIR="/data/installers"
+WEBADAPTOR_DIR="/home/arcgis/webadaptor12.0"
+TOMCAT_WEBAPPS="/data/tomcat/webapps"
+HOSTNAME=$(hostname -f)
+
+# ── Web Adaptor Configuration Parameters ──────────────────────
+PORTAL_ADMIN_USER="admin"
+PORTAL_ADMIN_PASS="admin123"
+SERVER_ADMIN_USER="siteadmin"
+SERVER_ADMIN_PASS="siteadmin"
+
+# ── Step 1: Extract Installer ──────────────────────────────────
+echo ""
+echo "[1/5] Extracting ArcGIS Web Adaptor installer..."
+cd "$INSTALLER_DIR"
+tar xvf ArcGIS_Web_Adaptor_Java_Linux_120_*.tar.gz
+echo "✔ Extraction complete."
+
+# ── Step 2: Run Silent Installation ───────────────────────────
+echo ""
+echo "[2/5] Installing ArcGIS Web Adaptor as arcgis user..."
+su - arcgis -c "
+  cd $INSTALLER_DIR/WebAdaptor &&
+  ./Setup -m silent -l yes
+"
+echo "✔ Installation complete."
+echo "  Web Adaptor installed at: $WEBADAPTOR_DIR"
+
+# ── Step 3: Deploy arcgis.war to Tomcat ───────────────────────
+echo ""
+echo "[3/5] Deploying arcgis.war to Tomcat as /portal and /server..."
+cp $WEBADAPTOR_DIR/java/arcgis.war $TOMCAT_WEBAPPS/portal.war
+cp $WEBADAPTOR_DIR/java/arcgis.war $TOMCAT_WEBAPPS/server.war
+echo "✔ WAR files deployed."
+echo "  Waiting 15 seconds for Tomcat to extract the WARs..."
+sleep 15
+
+# Verify deployment
+echo ""
+echo "  Deployed webapps:"
+ls $TOMCAT_WEBAPPS/
+
+# ── Step 4: Configure Web Adaptor for Portal ──────────────────
+echo ""
+echo "[4/5] Configuring Web Adaptor for Portal for ArcGIS..."
+echo "  Portal Web Adaptor URL : https://$HOSTNAME/portal/webadaptor"
+echo "  Portal FQDN            : $HOSTNAME"
+echo "  Admin User             : $PORTAL_ADMIN_USER"
+echo ""
+
+su - arcgis -c "
+  cd $WEBADAPTOR_DIR/java/tools &&
+  ./configurewebadaptor.sh \
+    -m portal \
+    -w https://$HOSTNAME/portal/webadaptor \
+    -g $HOSTNAME \
+    -u $PORTAL_ADMIN_USER \
+    -p $PORTAL_ADMIN_PASS \
+    -a true
+"
+echo "✔ Portal Web Adaptor configured."
+
+# ── Step 5: Configure Web Adaptor for Server ──────────────────
+echo ""
+echo "[5/5] Configuring Web Adaptor for ArcGIS Server..."
+echo "  Server Web Adaptor URL : https://$HOSTNAME/server/webadaptor"
+echo "  Server FQDN            : $HOSTNAME"
+echo "  Admin User             : $SERVER_ADMIN_USER"
+echo ""
+
+su - arcgis -c "
+  cd $WEBADAPTOR_DIR/java/tools &&
+  ./configurewebadaptor.sh \
+    -m server \
+    -w https://$HOSTNAME/server/webadaptor \
+    -g $HOSTNAME \
+    -u $SERVER_ADMIN_USER \
+    -p $SERVER_ADMIN_PASS \
+    -a true
+"
+echo "✔ Server Web Adaptor configured."
+
+echo ""
+echo "============================================================"
+echo "  ArcGIS Web Adaptor Installation Complete!"
+echo ""
+echo "  Access URLs:"
+echo "  Portal Home    : https://$HOSTNAME/portal/home"
+echo "  Server Manager : https://$HOSTNAME/server/manager"
+echo "============================================================"
+```
 
 Installs Web Adaptor, deploys `arcgis.war` to Tomcat as `/portal` and `/server`, then configures both adaptors.
 
