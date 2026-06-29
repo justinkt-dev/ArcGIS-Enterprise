@@ -4,8 +4,7 @@ A community-driven collection of practical documentation, troubleshooting guides
 
 This repository focuses on real-world administration, performance tuning, troubleshooting, and best practices gathered from hands-on experience supporting and maintaining ArcGIS Enterprise deployments.
 
-> **Note**
-> This repository is an independent educational resource and is **not affiliated with or maintained by Esri**. ArcGIS is a trademark of Esri.
+> **Note** that this repository is an independent educational resource and is **not affiliated with or maintained by Esri**. ArcGIS is a trademark of Esri.
 
 
 ## Repository Structure
@@ -37,27 +36,19 @@ Additional documentation will continue to be added over time.
 
 The **docs** directory contains detailed technical guides covering common ArcGIS Enterprise administration and troubleshooting scenarios.
 
----
-
 ## Scripts
 
 The **scripts** directory contains automation and utility scripts written in PowerShell, Python, and other scripting languages to simplify common ArcGIS Enterprise administration tasks.
 
----
-
 ## Cheat Sheets
 
 The **cheatsheets** directory provides concise, one-page reference guides intended for quick troubleshooting during production incidents.
-
----
 
 ## Contributing
 
 Suggestions, corrections, and improvements are always welcome.
 
 If you find an error, have a recommendation, or would like to contribute additional documentation or scripts, feel free to open an Issue or submit a Pull Request.
-
----
 
 ## References
 
