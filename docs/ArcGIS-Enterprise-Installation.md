@@ -179,13 +179,13 @@ su - arcgis -c "
     siteadmin \
     siteadmin \
     /home/arcgis/arcgis/datastore \
-    --stores relational,tileCache
+    --stores relational,objectstore
 "
 ```
 
 ### Verify
 
-Go to ArcGIS Server Manager → **Site** → **Data Stores** — both Relational and Tile Cache should show as `Started`.
+Go to ArcGIS Server Manager → **Site** → **Data Stores**, both Relational and Object Store should show as `Started`.
 
 ---
 
