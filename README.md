@@ -1,6 +1,5 @@
-# ArcGIS-Enterprise
 # ArcGIS Enterprise Documentation
-
+---
 A community-driven collection of practical documentation, troubleshooting guides, scripts, diagrams, and quick reference material for **ArcGIS Enterprise** administrators, GIS professionals, and support engineers.
 
 This repository focuses on real-world administration, performance tuning, troubleshooting, and best practices gathered from hands-on experience supporting and maintaining ArcGIS Enterprise deployments.
@@ -8,10 +7,9 @@ This repository focuses on real-world administration, performance tuning, troubl
 > **Note**
 > This repository is an independent educational resource and is **not affiliated with or maintained by Esri**. ArcGIS is a trademark of Esri.
 
----
 
 ## Repository Structure
-
+---
 ```text
 ArcGIS-Enterprise/
 │
@@ -22,10 +20,9 @@ ArcGIS-Enterprise/
 └── README.md
 ```
 
----
 
 ## Topics Covered
-
+---
 This repository includes documentation for topics such as:
 
 * ArcGIS Server
