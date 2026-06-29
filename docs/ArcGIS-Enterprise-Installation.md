@@ -58,7 +58,7 @@ id arcgis
 
 ---
 
-## 1 — ArcGIS Server
+## 1.0 ArcGIS Server
 
 ArcGIS Server is the core GIS engine that hosts map, feature, and geoprocessing services.
 
@@ -99,7 +99,7 @@ https://HOSTNAME:6443/arcgis/manager
 
 ---
 
-## 2 — Portal for ArcGIS
+## 2.0 Portal for ArcGIS
 
 Portal for ArcGIS is the web-based entry point for your ArcGIS Enterprise deployment — used for sharing maps, apps, and data across your organization.
 
@@ -138,7 +138,7 @@ https://HOSTNAME:7443/arcgis/home
 
 ---
 
-## 3 — ArcGIS DataStore
+## 3.0 ArcGIS DataStore
 
 ArcGIS DataStore provides managed databases for hosted feature layers, scene layers, and spatiotemporal data. Supports Relational and Tile Cache store types.
 
@@ -189,7 +189,7 @@ Go to ArcGIS Server Manager → **Site** → **Data Stores** — both Relational
 
 ---
 
-## 4 — ArcGIS Web Adaptor
+## 4.0 ArcGIS Web Adaptor
 
 ArcGIS Web Adaptor routes requests from port 443 through Tomcat to ArcGIS Server and Portal, enabling access via standard HTTPS URLs.
 
@@ -276,7 +276,7 @@ systemctl status tomcat | head
 |---|---|---|
 | Portal | `https://HOSTNAME:7443/arcgis/home` | `https://HOSTNAME/portal/home` |
 | Server Manager | `https://HOSTNAME:6443/arcgis/manager` | `https://HOSTNAME/server/manager` |
-| Tomcat Manager | — | `https://HOSTNAME/manager/html` |
+| Tomcat Manager | `http://HOSTNAME:8080/manager/html` | `https://HOSTNAME/manager/html` |
 
 ---
 
