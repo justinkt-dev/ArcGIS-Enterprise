@@ -54,7 +54,6 @@ If you find an error, have a recommendation, or would like to contribute additio
 
 Official Esri documentation is referenced throughout this repository where applicable. All trademarks and product names remain the property of their respective owners.
 
----
 
 ## Disclaimer
 
