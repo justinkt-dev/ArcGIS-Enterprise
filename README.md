@@ -1,5 +1,5 @@
 # ArcGIS Enterprise Documentation
----
+
 A community-driven collection of practical documentation, troubleshooting guides, scripts, diagrams, and quick reference material for **ArcGIS Enterprise** administrators, GIS professionals, and support engineers.
 
 This repository focuses on real-world administration, performance tuning, troubleshooting, and best practices gathered from hands-on experience supporting and maintaining ArcGIS Enterprise deployments.
@@ -9,7 +9,7 @@ This repository focuses on real-world administration, performance tuning, troubl
 
 
 ## Repository Structure
----
+
 ```text
 ArcGIS-Enterprise/
 │
@@ -20,23 +20,18 @@ ArcGIS-Enterprise/
 └── README.md
 ```
 
-
 ## Topics Covered
----
+
 This repository includes documentation for topics such as:
 
-* ArcGIS Server
-* Portal for ArcGIS
-* ArcGIS Data Store
-* Performance Optimization (ArcSOC, Memory, Heap Sizing, Service Pooling, Service Type etc...)
-* Feature Services
-* ArcGIS Web Apps 
+* ArcGIS Server, Portal for ArcGIS, ArcGIS DataStore
+* Feature Services, ArcGIS WebApps, Extensions 
+* Performance Optimization (ArcSOC, Memory & Heap Sizing, Pooling, Instance Type etc...)
 * Troubleshooting and Best Practices
 * Automation Scripts
 
 Additional documentation will continue to be added over time.
 
----
 
 ## Documentation
 
