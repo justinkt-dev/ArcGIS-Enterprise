@@ -176,6 +176,7 @@ https://HOSTNAME:6443/arcgis/manager
 ## 2.0 Portal for ArcGIS
 
 Installation Script
+
 ```bash
 #!/bin/bash
 # ============================================================
@@ -262,7 +263,7 @@ https://HOSTNAME:7443/arcgis/home
 
 Installation Script
 
-``bash
+```bash
 #!/bin/bash
 # ============================================================
 #  ArcGIS Enterprise 12.0 — ArcGIS DataStore Installation
